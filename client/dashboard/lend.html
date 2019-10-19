@@ -28,7 +28,7 @@
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
     <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
-    <script src="txExp.js"></script>
+    <!-- <script src="txExp.js"></script> -->
    <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
@@ -202,7 +202,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text" id="chainDeployed"><span class="count">0</span></div>
+                                            <div class="stat-text"  id="ethBalance" ><span class="count">0</span></div>
                                             <div class="stat-heading">ETH</div>
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count"></span></div>
+                                            <div class="stat-text" id="usdBalance">0</div>
                                             <div class="stat-heading">USD</div>
                                         </div>
                                     </div>
@@ -267,14 +267,14 @@
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="cc-exp" class="control-label mb-1">ETH</label>
-                                                            <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="100.00">
+                                                            <input id="ethToDaiEth" type="text" class="form-control" placeholder="100.00" onchange="populateDAI()">
                                                             <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="x_card_code" class="control-label mb-1">DAI</label>
                                                         <div class="input-group">
-                                                            <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" value="" placeholder="20000.00" data-val="true" data-val-required="Please enter the security code" data-val-cc-cvc="Please enter a valid security code" autocomplete="off" disabled="true">
+                                                            <input id="ethToDaiDai" class="form-control cc-cvc"placeholder="20000.00" autocomplete="off" disabled="true">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -637,6 +637,6 @@
             // Bar Chart #flotBarChart End
         });
     </script>
-    
+    <script src="getBalance.js"></script>
 </body>
 </html>
