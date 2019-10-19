@@ -111,7 +111,62 @@ contract('CompoundDAIMarket', (accounts) => {
     });
     
     it("should lend zkDAI & receive czkDAI in return", async() => {
-        
+
+        // minting DAI tokens for lender 
+
+        let { receipt } = await DAIInstance.mint(lender.address, 200);
+        assert.equal(receipt.status, true);
+
+        // Proofs for converting ERC20 tokens to AZTEC notes
+        let depositInputNotes = [];
+        let depositOutputNotes = [await aztec.note.create(lender.publicKey, 100)]
+        let depositPublicValue = -100;
+        let depositInputOwnerAccounts = [];
+
+        const convertProof = new aztec.JoinSplitProof(depositInputNotes, depositOutputNotes, lender.address, depositPublicValue, lender.address);
+        const convertData = convertProof.encodeABI(zkDAIInstance.address);
+        const convertSignatures = convertProof.constructSignatures(zkDAIInstance.address, depositInputOwnerAccounts);
+
+        await DAIInstance.approve(ACEInstance.address, -depositPublicValue, {from: lender.address})
+
+        await ACEInstance.publicApprove(zkDAIInstance.address, convertProof.hash, -depositPublicValue, { from: lender.address });
+        let tx = await zkDAIInstance.confidentialTransfer(convertData, convertSignatures, { from: lender.address });
+        assert.equal(tx.receipt.status, true);
+
+        // Join split zkDAI from user to contract
+        let inputNotes = [depositOutputNotes[0]];
+        let outputNotes = [await aztec.note.create(dummyPublicKey, 100)];
+        let publicValue = 0;
+        let inputOwnerAccounts = [lender]
+
+        const depositProof = new aztec.JoinSplitProof(inputNotes, outputNotes, lender.address, publicValue, lender.address);
+        const depositData = depositProof.encodeABI(zkDAIInstance.address);
+        const depositSignatures = depositProof.constructSignatures(zkDAIInstance.address, inputOwnerAccounts);
+
+        await DAIInstance.approve(ACEInstance.address, depositPublicValue, {from: lender.address})
+
+        await ACEInstance.publicApprove(zkDAIInstance.address, depositProof.hash, -depositPublicValue, { from: lender.address });
+        tx = await zkDAIInstance.confidentialTransfer(depositData, depositSignatures, { from: lender.address });
+        assert.equal(tx.receipt.status, true);
+
+        // Mint czkDAI for user
+        // First get exchange rate from contract
+        let exchangeRate = await CompoundDAIMarketInstance.getExchangeRate.call();
+        // console.log(100 * exchangeRate / 100);
+        let adjustedNote = await aztec.note.create(lender.publicKey, 100 * exchangeRate / 100);
+        let newTotMinted = await aztec.note.create(dummyPublicKey, 100 * exchangeRate / 100);
+        let oldTotMinted = await aztec.note.createZeroValueNote();
+
+        let mintProof = new aztec.MintProof(
+            oldTotMinted, 
+            newTotMinted, 
+            [adjustedNote],
+            czkDAIInstance.address,
+        );
+        const mintData = mintProof.encodeABI();
+        tx = await czkDAIInstance.confidentialMint(MINT_PROOF, mintData, {from: accounts[0]});
+        assert.equal(tx.receipt.status, true);
+
     })
 
     return;

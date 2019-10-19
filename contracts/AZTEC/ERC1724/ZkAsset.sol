@@ -25,7 +25,24 @@ contract ZkAsset is ZkAssetBase {
         _aceAddress,
         _linkedTokenAddress,
         _scalingFactor,
-        false // Can adjust supply
+        true // Can adjust supply
     ) {
+    }
+
+    function confidentialMint(uint24 _proof, bytes calldata _proofData) external {
+        require(_proofData.length != 0, "proof invalid");
+
+        (bytes memory _proofOutputs) = ace.mint(_proof, _proofData, address(this));
+
+        (, bytes memory newTotal, ,) = _proofOutputs.get(0).extractProofOutput();
+
+        (, bytes memory mintedNotes, ,) = _proofOutputs.get(1).extractProofOutput();
+
+        (,
+        bytes32 noteHash,
+        bytes memory metadata) = newTotal.get(0).extractNote();
+
+        logOutputNotes(mintedNotes);
+        // emit UpdateTotalMinted(noteHash, metadata);
     }
 }
