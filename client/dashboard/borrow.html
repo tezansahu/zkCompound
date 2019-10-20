@@ -77,10 +77,10 @@
                     <li>
                         <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Home</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="lend.html"><i class="menu-icon fa fa-podcast"></i>Lend</a>
                     </li>
-                    <li>
+                    <li  class="active">
                         <a href="borrow.html"><i class="menu-icon fa fa-shopping-basket"></i>Borrow</a>
                     </li>
                     <li>
@@ -238,7 +238,7 @@
                                     <div class="stat-content">
                                         <div class="text-left dib">
                                             <div class="stat-text" id="daiBal">0</div>
-                                            <div class="stat-heading">DAI</div>
+                                            <div class="stat-heading">CDAI</div>
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +257,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title">Convert ETH to DAI</strong>
+                                    <strong class="card-title">Convert ETH to CDAI</strong>
                                 </div>
                                 <div class="card-body">
                                     <!-- Credit Card -->
@@ -272,7 +272,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
-                                                        <label for="x_card_code" class="control-label mb-1">DAI</label>
+                                                        <label for="x_card_code" class="control-label mb-1">CDAI</label>
                                                         <div class="input-group">
                                                             <input id="ethToDaiDai" class="form-control cc-cvc"placeholder="20000.00" autocomplete="off" disabled="true">
                                                         </div>
@@ -296,7 +296,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title">Convert DAI to zkDAI</strong>
+                                    <strong class="card-title">Convert CDAI to czkDAI</strong>
                                 </div>
                                 <div class="card-body">
                                     <!-- Credit Card -->
@@ -305,14 +305,14 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="cc-exp" class="control-label mb-1">DAI</label>
+                                                            <label for="cc-exp" class="control-label mb-1">CDAI</label>
                                                             <input id="daiToZkDaiDai" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="100.00">
                                                             <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <button type="submit" class="btn btn-lg btn-info btn-block" onclick="conDaiToZk()">
+                                                    <button type="submit" class="btn btn-lg btn-info btn-block" onclick="conCZKDAI()">
                                                         <i class="fa fa-cog fa-lg"></i>&nbsp;
                                                         <span id="payment-button-amount">Convert</span>
                                                     </button>
@@ -327,7 +327,7 @@
                                 <div class="col-lg-12" style="overflow:scroll; height:200px;">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title box-title">zkDAI Explorer</h4>
+                                            <h4 class="card-title box-title">czkDAI Explorer</h4>
                                             <div class="card-content">
                                                 <div class="messenger-box">
                                                     <ul id="notifiactionManagerzkDai">
@@ -343,7 +343,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title">Lending</strong>
+                                    <strong class="card-title">Borrow</strong>
                                 </div>
                                 <div class="card-body">
                                     <!-- Credit Card -->
@@ -352,16 +352,16 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="cc-exp" class="control-label mb-1">Lend</label>
-                                                            <input id="lendHash" type="text" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="Note Hash">
+                                                            <label for="cc-exp" class="control-label mb-1">czkDAI Note Hash</label>
+                                                            <input id="czkDAINoteHash" type="text" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="Note Hash">
                                                             <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block" onclick="lend()">
+                                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block" onclick="borrow()">
                                                         <i class="fa fa-cog fa-lg"></i>&nbsp;
-                                                        <span id="payment-button-amount">Lend</span>
+                                                        <span id="payment-button-amount">Borrow</span>
                                                     </button>
                                                 </div>
                                             </form>
@@ -382,7 +382,7 @@
                     <div class="col-lg-12" style="overflow:scroll; height:200px;">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title box-title">cZkDAI Explorer</h4>
+                                <h4 class="card-title box-title">zkDAI Explorer</h4>
                                 <div class="card-content">
                                     <div class="messenger-box">
                                         <ul id="notifiactionManagercZkDai">
@@ -637,6 +637,6 @@
             // Bar Chart #flotBarChart End
         });
     </script>
-    <script src="getBalance.js"></script>
+    <script src="borrow.js"></script>
 </body>
 </html>

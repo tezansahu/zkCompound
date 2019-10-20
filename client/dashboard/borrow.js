@@ -15,14 +15,14 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function getBal(){
-    theUrl = "http://127.0.0.1:3000/ethBalance?accountIndex=1"
+    theUrl = "http://127.0.0.1:3000/ethBalance?accountIndex=2"
     doCall(theUrl, (res) => {
         document.getElementById('ethBalance').innerHTML = `<span class="count">${(res / 1000000000000000000).toFixed(8)}</span>`;
         document.getElementById('usdBalance').innerHTML = ((res * 200) / 100000000000000000000).toFixed(2);
     })
 }
 function getBalDai(){
-    theUrl = "http://127.0.0.1:3000/ethBalanceDai?accountIndex=1"
+    theUrl = "http://127.0.0.1:3000/ethBalanceDai?accountIndex=2"
     doCall(theUrl, (res) => {
         let a = res.toString();
         document.getElementById('daiBal').innerHTML = `<span class="count">${a.slice(a.length - 6)}</span>`;
@@ -37,25 +37,25 @@ function populateDAI(){
 
 function conEthToDai(){
     let daiVal = document.getElementById('ethToDaiDai').value;
-    doCall(`${url}/ethToDai?amount=${daiVal}`, (res) => {
+    doCall(`${url}/ethToDai2?amount=${daiVal}`, (res) => {
         console.log(res);
     })
 }
 
-function conDaiToZk() {
+function conCZKDAI() {
     let daiVal = document.getElementById('daiToZkDaiDai').value;
-    doCall(`${url}/daiToZkDai?amount=${daiVal}`, (res) => {
-        firebase.database().ref('daiToZkDai').push({
+    doCall(`${url}/daiToZkDai2?amount=${daiVal}`, (res) => {
+        firebase.database().ref('brw/daiToZkDai').push({
             note: (res),
             value: daiVal,
             spent: 0
         });
     })
 }
-function zktoc(amount) {
+function zktocRev(amount) {
     //let daiVal = document.getElementById('daiToZkDaiDai').value;
-    doCall(`${url}/ZkDaiTock?amount=${amount}`, (res) => {
-        firebase.database().ref('czk').push({
+    doCall(`${url}/ZkDaiTock2?amount=${amount}`, (res) => {
+        firebase.database().ref('brw/czk').push({
             note: (res),
             value: amount,
             withdraw: 0
@@ -77,7 +77,7 @@ getBal();
 getBalDai();
 
 function zkDAIExp(){
-    var starCountRef = firebase.database().ref('daiToZkDai');
+    var starCountRef = firebase.database().ref('brw/daiToZkDai');
     starCountRef.on('value', function(snapshot) {
         snapshot.forEach(snap => {
             // console.log(JSON.parse(snap.val().note)[0])
@@ -117,17 +117,17 @@ function zkDAIExp(){
 }
 zkDAIExp();
 
-function lend(){
+function borrow(){
     let cnf = false;
     let val=0;
-    var starCountRef = firebase.database().ref('daiToZkDai');
+    var starCountRef = firebase.database().ref('brw/daiToZkDai');
     starCountRef.on('value', function(snapshot) {
         snapshot.forEach(snap => {
-            if(JSON.parse(snap.val().note)[0].noteHash == document.getElementById('lendHash').value &&
+            if(JSON.parse(snap.val().note)[0].noteHash == document.getElementById('czkDAINoteHash').value &&
             snap.val().spent == 0){
                 cnf = true;
                 val = snap.val().value;
-                var starCountRef2 = firebase.database().ref('daiToZkDai/'+snap.key);
+                var starCountRef2 = firebase.database().ref('brw/daiToZkDai/'+snap.key);
                 starCountRef2.update({
                     spent: 1
                 })
@@ -136,13 +136,13 @@ function lend(){
     });
     if(cnf){
         alert('Done')
-        zktoc(val);
+        zktocRev(val);
     }else{
         alert('Already Spent')
     }
 }
 function czkDAIExp(){
-    var starCountRef = firebase.database().ref('czk');
+    var starCountRef = firebase.database().ref('brw/czk');
     starCountRef.on('value', function(snapshot) {
         snapshot.forEach(snap => {
             // console.log(JSON.parse(snap.val().note)[0])
@@ -160,7 +160,7 @@ function czkDAIExp(){
                                     </div>
                                     <div class="meg" style="overflow:scroll; height:100px; width: 800px">
                                         <b>Value</b> : <button id="${snap.val().value}" onclick="alert(this.id)">View</button><br>
-                                        <b>Withdraw</b> : ${snap.val().withdraw == 0 ? `<span style="color: white;
+                                        <b>Recover</b> : ${snap.val().withdraw == 0 ? `<span style="color: white;
                                         padding: 10px;
                                         text-transform: uppercase;
                                         font-weight: normal;
@@ -185,8 +185,8 @@ czkDAIExp();
 function withdraw(key){
     let keyD = key.split('#');
     let value = keyD[1];
-    doCall(`${url}/addDai?amount=${value}`, (res) => {
-        firebase.database().ref('czk/'+keyD[0]).update({
+    doCall(`${url}/recoverDAI?amount=${value}`, (res) => {
+        firebase.database().ref('brw/czk/'+keyD[0]).update({
             withdraw: 1
         });
     })
