@@ -84,7 +84,7 @@ function zkDAIExp(){
             document.getElementById('notifiactionManagerzkDai').innerHTML += `   <li>
                     <div class="msg-received msg-container">
                             <div class="avatar">
-                                <img src="images/saru.JPG" alt="">
+                                <img src="images/cdai.JPG" alt="">
                                 <!-- <div class="send-time">12.11 pm</div> -->
                             </div>
                             <div class="msg-box">
@@ -94,7 +94,8 @@ function zkDAIExp(){
                                         Note Hash: </b>${JSON.parse(snap.val().note)[0].noteHash}
                                     </div>
                                     <div class="meg" style="overflow:scroll; height:100px; width: 800px">
-                                        <b>Value</b> : <button id="${snap.val().value}" onclick="alert(this.id)">View</button><br>
+                                        <b>Value</b> : <button id="${snap.val().value}"  class="btn btn-primary m-l-10 m-b-10" onclick="alert(this.id)">View</button><br>
+                                        <br>
                                         <b>Status</b> : ${snap.val().spent == 0 ? `<span style="color: white;
                                         padding: 10px;
                                         text-transform: uppercase;
@@ -149,7 +150,7 @@ function czkDAIExp(){
             document.getElementById('notifiactionManagercZkDai').innerHTML += `   <li>
                     <div class="msg-received msg-container">
                             <div class="avatar">
-                                <img src="images/saru.JPG" alt="">
+                                <img src="images/dai.JPG" alt="">
                                 <!-- <div class="send-time">12.11 pm</div> -->
                             </div>
                             <div class="msg-box">
@@ -159,7 +160,8 @@ function czkDAIExp(){
                                         Note Hash: </b>${JSON.parse(snap.val().note)[0].noteHash}
                                     </div>
                                     <div class="meg" style="overflow:scroll; height:100px; width: 800px">
-                                        <b>Value</b> : <button id="${snap.val().value}" onclick="alert(this.id)">View</button><br>
+                                        <b>Value</b> : <button id="${snap.val().value}"  class="btn btn-primary m-l-10 m-b-10" onclick="alert(this.id)">View</button><br>
+                                        <br>
                                         <b>Recover</b> : ${snap.val().withdraw == 0 ? `<span style="color: white;
                                         padding: 10px;
                                         text-transform: uppercase;
