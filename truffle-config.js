@@ -53,7 +53,7 @@ module.exports = {
         return new HDWalletProvider("differ idle retire demise glare sentence glove hammer iron mango way empty", `https://testnet2.matic.network`)
       },
       network_id: 8995,
-      gas: 0,
+      gas: 80000,
       gasPrice: 0,
       skipDryRun: true
     },
