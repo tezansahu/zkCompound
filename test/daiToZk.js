@@ -1,5 +1,5 @@
 const DaiJSON = require('../build/contracts/DAI.json');
-const ZkERC20 = require('../build/contracts/ZkERC20.json');
+const zkDAIJSON = require('../build/contracts/zkDAI.json');
 const ACEJSON = require('../build/contracts/ACE.json');
 const aztecAccounts = require('../test/accounts.json');
 
@@ -14,9 +14,9 @@ let borrower = aztecAccounts[2];
 async function convertToZk(amount, callback){
     let accounts = await web3.eth.getAccounts();
     let chainID  = await web3.eth.net.getId();
-    let DAIInstance = new web3.eth.Contract(DaiJSON.abi, "0xaC01036C321Acef4952f8b610F703533f1F60A6b");
-    let ACEInstance = new web3.eth.Contract(ACEJSON.abi, "0x89adbFD83aa3Bc5BF40b0E8db0C76f9b5b0b043d");
-    let zkDAIInstance = new web3.eth.Contract(ZkERC20.abi, "0x7924259759c86CAf163128AfD3570Db18925425f")
+    let DAIInstance = new web3.eth.Contract(DaiJSON.abi, DaiJSON["networks"][chainID.toString()]["address"]);
+    let ACEInstance = new web3.eth.Contract(ACEJSON.abi, ACEJSON["networks"][chainID.toString()]["address"]);
+    let zkDAIInstance = new web3.eth.Contract(zkDAIJSON.abi, zkDAIJSON["networks"][chainID.toString()]["address"])
     
     let depositInputNotes = [];
         let depositOutputNotes = [await aztec.note.create(lender.publicKey, 100)]
@@ -24,7 +24,7 @@ async function convertToZk(amount, callback){
         let depositInputOwnerAccounts = [];
 
         const convertProof = new aztec.JoinSplitProof(depositInputNotes, depositOutputNotes, lender.address, depositPublicValue, lender.address);
-        const convertData = convertProof.encodeABI("0x89adbFD83aa3Bc5BF40b0E8db0C76f9b5b0b043d");
+        const convertData = convertProof.encodeABI(zkDAIInstance.address);
         const convertSignatures = convertProof.constructSignatures(zkDAIInstance.address, depositInputOwnerAccounts);
 
         await DAIInstance.methods.approve(ACEInstance.address, -depositPublicValue).send({from: lender.address})

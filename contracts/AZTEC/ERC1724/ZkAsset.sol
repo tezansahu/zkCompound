@@ -44,5 +44,23 @@ contract ZkAsset is ZkAssetBase {
 
         logOutputNotes(mintedNotes);
         // emit UpdateTotalMinted(noteHash, metadata);
+        
+    }
+
+    function confidentialBurn(uint24 _proof, bytes calldata _proofData) external  {
+        require(_proofData.length != 0, "proof invalid");
+
+        (bytes memory _proofOutputs) = ace.burn(_proof, _proofData, address(this));
+        require(0 == 1, "Here break!");
+        (, bytes memory newTotal, ,) = _proofOutputs.get(0).extractProofOutput();
+
+        (, bytes memory burnedNotes, ,) = _proofOutputs.get(1).extractProofOutput();
+
+        (,
+        bytes32 noteHash,
+        bytes memory metadata) = newTotal.get(0).extractNote();
+
+        logOutputNotes(burnedNotes);
+        // emit UpdateTotalBurned(noteHash, metadata);
     }
 }

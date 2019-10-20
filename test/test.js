@@ -24,6 +24,7 @@ const {
             JOIN_SPLIT_PROOF,
             MINT_PROOF,
             SWAP_PROOF,
+            BURN_PROOF,
         },
     } = utils;
 
@@ -56,7 +57,10 @@ contract('CompoundDAIMarket', (accounts) => {
     let dummyPublicKey = "0x047c7b4dfedccb80aa11132e4b5411e96d9fc4057e1cb74a8058ca003fc707473f34d40713927ebdd721bd4ac4f7bef50456a5eff02bc888127c40e2c67eeda823"
     let salt = "0x7bf20bc9c53493cfd19f9378b1bb9f36ceeee7e76b724efeca38f7d1c96f8a04";
 
-    beforeEach(async () => {
+    let newTotMintedViewKey = "0x00";
+    let mintedViewKey = "0x00";
+
+    before(async () => {
         AdjustSupplyInstance = await JoinSplitFluid.new();
         BilateralSwapInstance = await Swap.new();
         JoinSplitInstance = await JoinSplit.new();
@@ -64,6 +68,7 @@ contract('CompoundDAIMarket', (accounts) => {
         await ACEInstance.setCommonReferenceString(constants.CRS);
         await ACEInstance.setProof(MINT_PROOF, AdjustSupplyInstance.address);
         await ACEInstance.setProof(SWAP_PROOF, BilateralSwapInstance.address);
+        await ACEInstance.setProof(BURN_PROOF, AdjustSupplyInstance.address);
         // await ACEContract.setProof(DIVIDEND_PROOF, Dividend.address);
         await ACEInstance.setProof(JOIN_SPLIT_PROOF, JoinSplitInstance.address);
         // await ACEContract.setProof(PRIVATE_RANGE_PROOF, PrivateRange.address);
@@ -114,47 +119,50 @@ contract('CompoundDAIMarket', (accounts) => {
 
         // minting DAI tokens for lender 
 
-        let { receipt } = await DAIInstance.mint(lender.address, 200);
-        assert.equal(receipt.status, true);
+        // let { receipt } = await DAIInstance.mint(lender.address, 200);
+        // assert.equal(receipt.status, true);
 
-        // Proofs for converting ERC20 tokens to AZTEC notes
-        let depositInputNotes = [];
-        let depositOutputNotes = [await aztec.note.create(lender.publicKey, 100)]
-        let depositPublicValue = -100;
-        let depositInputOwnerAccounts = [];
+        // // Proofs for converting ERC20 tokens to AZTEC notes
+        // let depositInputNotes = [];
+        // let depositOutputNotes = [await aztec.note.create(lender.publicKey, 100)]
+        // let depositPublicValue = -100;
+        // let depositInputOwnerAccounts = [];
 
-        const convertProof = new aztec.JoinSplitProof(depositInputNotes, depositOutputNotes, lender.address, depositPublicValue, lender.address);
-        const convertData = convertProof.encodeABI(zkDAIInstance.address);
-        const convertSignatures = convertProof.constructSignatures(zkDAIInstance.address, depositInputOwnerAccounts);
+        // const convertProof = new aztec.JoinSplitProof(depositInputNotes, depositOutputNotes, lender.address, depositPublicValue, lender.address);
+        // const convertData = convertProof.encodeABI(zkDAIInstance.address);
+        // const convertSignatures = convertProof.constructSignatures(zkDAIInstance.address, depositInputOwnerAccounts);
 
-        await DAIInstance.approve(ACEInstance.address, -depositPublicValue, {from: lender.address})
+        // await DAIInstance.approve(ACEInstance.address, -depositPublicValue, {from: lender.address})
 
-        await ACEInstance.publicApprove(zkDAIInstance.address, convertProof.hash, -depositPublicValue, { from: lender.address });
-        let tx = await zkDAIInstance.confidentialTransfer(convertData, convertSignatures, { from: lender.address });
-        assert.equal(tx.receipt.status, true);
+        // await ACEInstance.publicApprove(zkDAIInstance.address, convertProof.hash, -depositPublicValue, { from: lender.address });
+        // let tx = await zkDAIInstance.confidentialTransfer(convertData, convertSignatures, { from: lender.address });
+        // assert.equal(tx.receipt.status, true);
 
-        // Join split zkDAI from user to contract
-        let inputNotes = [depositOutputNotes[0]];
-        let outputNotes = [await aztec.note.create(dummyPublicKey, 100)];
-        let publicValue = 0;
-        let inputOwnerAccounts = [lender]
+        // // Join split zkDAI from user to contract
+        // let inputNotes = [depositOutputNotes[0]];
+        // let outputNotes = [await aztec.note.create(dummyPublicKey, 100)];
+        // let publicValue = 0;
+        // let inputOwnerAccounts = [lender]
 
-        const depositProof = new aztec.JoinSplitProof(inputNotes, outputNotes, lender.address, publicValue, lender.address);
-        const depositData = depositProof.encodeABI(zkDAIInstance.address);
-        const depositSignatures = depositProof.constructSignatures(zkDAIInstance.address, inputOwnerAccounts);
+        // const depositProof = new aztec.JoinSplitProof(inputNotes, outputNotes, lender.address, publicValue, lender.address);
+        // const depositData = depositProof.encodeABI(zkDAIInstance.address);
+        // const depositSignatures = depositProof.constructSignatures(zkDAIInstance.address, inputOwnerAccounts);
 
-        await DAIInstance.approve(ACEInstance.address, depositPublicValue, {from: lender.address})
+        // await DAIInstance.approve(ACEInstance.address, depositPublicValue, {from: lender.address})
 
-        await ACEInstance.publicApprove(zkDAIInstance.address, depositProof.hash, -depositPublicValue, { from: lender.address });
-        tx = await zkDAIInstance.confidentialTransfer(depositData, depositSignatures, { from: lender.address });
-        assert.equal(tx.receipt.status, true);
+        // await ACEInstance.publicApprove(zkDAIInstance.address, depositProof.hash, -depositPublicValue, { from: lender.address });
+        // tx = await zkDAIInstance.confidentialTransfer(depositData, depositSignatures, { from: lender.address });
+        // assert.equal(tx.receipt.status, true);
 
         // Mint czkDAI for user
         // First get exchange rate from contract
         let exchangeRate = await CompoundDAIMarketInstance.getExchangeRate.call();
         // console.log(100 * exchangeRate / 100);
         let adjustedNote = await aztec.note.create(lender.publicKey, 100 * exchangeRate / 100);
+        mintedViewKey = adjustedNote.getView();
         let newTotMinted = await aztec.note.create(dummyPublicKey, 100 * exchangeRate / 100);
+        newTotMintedViewKey = newTotMinted.getView();
+        // console.log(newTotMintedHash);
         let oldTotMinted = await aztec.note.createZeroValueNote();
 
         let mintProof = new aztec.MintProof(
@@ -167,6 +175,22 @@ contract('CompoundDAIMarket', (accounts) => {
         tx = await czkDAIInstance.confidentialMint(MINT_PROOF, mintData, {from: accounts[0]});
         assert.equal(tx.receipt.status, true);
 
+    });
+
+    it("should repay czkDAI to get zkDAI", async () => {
+        // Burn the czkDAI with the user
+        let burntNote = await aztec.note.fromViewKey(mintedViewKey);
+        let beforeBurnSupply = await aztec.note.fromViewKey(newTotMintedViewKey);
+        let afterBurnSupply = await aztec.note.createZeroValueNote();
+        let burnProof = new aztec.BurnProof(
+            beforeBurnSupply,
+            afterBurnSupply,
+            [burntNote],
+            czkDAIInstance.address,
+        );
+        const burnData = burnProof.encodeABI();
+        tx = await czkDAIInstance.confidentialBurn(BURN_PROOF, burnData, {from: accounts[0]});
+        assert.equal(tx.receipt.status, true);
     })
 
     return;
