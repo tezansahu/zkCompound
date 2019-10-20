@@ -78,7 +78,7 @@
                         <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Home</a>
                     </li>
                     <li>
-                        <a href="lend.html"><i class="menu-icon fa fa-podcast"></i>Lend</a>
+                        <a href="lend.html"><i class="menu-icon fa fa-money"></i>Lend</a>
                     </li>
                     <li>
                         <a href="borrow.html"><i class="menu-icon fa fa-shopping-basket"></i>Borrow</a>
@@ -237,7 +237,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span >0.56</span></div>
+                                            <div class="stat-text"><span >1.06 %</span></div>
                                             <div class="stat-heading">Interest Rate</div>
                                         </div>
                                     </div>
@@ -481,17 +481,17 @@
 
             // Pie chart flotPie1
             var piedata = [
-                { label: "D", data: [[1,25]], color: '#5c6bc0'},
-                { label: "W", data: [[1,12]], color: '#ef5350'},
-                { label: "S", data: [[1,6]], color: '#66bb6a'}
+                { label: "Deposit", data: [[1,25]], color: '#5c6bc0'},
+                { label: "Withdrawal", data: [[1,12]], color: '#ef5350'},
+                { label: "Reserve", data: [[1,6]], color: '#66bb6a'}
             ];
 
             $.plot('#flotPie1', piedata, {
                 series: {
                     pie: {
                         show: true,
-                        radius: 1,
-                        innerRadius: 0.65,
+                        radius: 0.65,
+                        innerRadius: 0.40,
                         label: {
                             show: true,
                             radius: 2/3,

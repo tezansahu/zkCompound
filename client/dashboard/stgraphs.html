@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GeoHealth Dashboard</title>
+    <title>zkCompound Dashboard</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -74,20 +74,20 @@
                 <ul class="nav navbar-nav">
                     <li class="menu-title">Admin Controls</li><!-- /.menu-title -->
                     <li>
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
-                    </li>
-                    <li>
-                        <a href="network.html"><i class="menu-icon fa fa-cubes"></i>Network Management</a>
-                    </li>
-                    <li>
-                        <a href="createSupplyChain.html"><i class="menu-icon fa fa-link"></i>Create Supply Chain</a>
-                    </li>
-                    <li>
-                        <a href="deployProducts.html"><i class="menu-icon fa fa-shopping-basket"></i>Supply Chain Products</a>
-                    </li>
-                    <li class="active">
-                        <a href="stgraphs.html"><i class="menu-icon fa fa-area-chart"></i>Analytics and Graphs</a>
-                    </li>
+                            <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="lend.html"><i class="menu-icon fa fa-money"></i>Lend</a>
+                        </li>
+                        <li>
+                            <a href="borrow.html"><i class="menu-icon fa fa-shopping-basket"></i>Borrow</a>
+                        </li>
+                        <li class="active">
+                            <a href="stgraphs.html"><i class="menu-icon fa fa-area-chart"></i>Analytics and Graphs</a>
+                        </li>
+                        <li>
+                            <a href="stgraphs.html"><i class="menu-icon fa fa-cubes"></i>Explorer</a>
+                        </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -101,8 +101,8 @@
                 <div class="navbar-header">
                     <!-- <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a> -->
-                    <a class="navbar-brand" href="./"><h4>CMO Admin</h4></a>
-                    <a class="navbar-brand hidden" href="./"><h3>CMO Admin</h3></a>
+                    <a class="navbar-brand" href="./"><h4>zkCompound</h4></a>
+                    <a class="navbar-brand hidden" href="./"><h3>zkCompound</h3></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -196,7 +196,7 @@
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                            <h4 class="mb-3">Contract Transaction Hits </h4>
+                                            <h4 class="mb-3">Interest Rate</h4>
                                             <canvas id="sales-chart" height="318" width="530" class="chartjs-render-monitor" style="display: block; width: 530px; height: 318px;"></canvas>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                            <h4 class="mb-3">Stage Time Estimation</h4>
+                                            <h4 class="mb-3">Active Lenders</h4>
                                             <canvas id="singelBarChart" height="278" width="464" class="chartjs-render-monitor" style="display: block; width: 464px; height: 278px;"></canvas>
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                 <div class="col-lg-6">
                                     <div class="card">
                                         <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                            <h4 class="mb-3">Supply vs Demand  </h4>
+                                            <h4 class="mb-3">Lender Volume vs Borrowers Volume  </h4>
                                             <canvas id="barChart" width="516" height="258" class="chartjs-render-monitor" style="display: block; width: 516px; height: 258px;"></canvas>
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
                                 <div class="col-lg-6">
                                     <div class="card">
                                         <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                            <h4 class="mb-3">Bakery vs Medicine </h4>
+                                            <h4 class="mb-3">Deposit vs Withdrawals </h4>
                                             <canvas id="team-chart" height="327" width="516" class="chartjs-render-monitor" style="display: block; width: 516px; height: 327px;"></canvas>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
-                        Copyright &copy; 2018 GeoHealth Odisha
+                        Copyright &copy; 2019 InOut
                     </div>
                     
                 </div>
@@ -484,12 +484,13 @@
     var myChart = new Chart( ctx, {
         type: 'line',
         data: {
-            labels: [ "2012", "2013", "2014", "2015", "2016", "2017", "2018","|2019|" ],
+            labels: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sept"],
             type: 'line',
             defaultFontFamily: 'Montserrat',
             datasets: [ {
-                label: "Bakery Contract",
-                data: [20,27,29,40,39,56,62,65],
+                label: "Lend Volume",
+                // data: [20,27,29,40,39,56,62,65,66],
+                data: [1,2,3,2,4,2,3,3,2],
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(220,53,69,0.75)',
                 borderWidth: 3,
@@ -498,8 +499,8 @@
                 pointBorderColor: 'transparent',
                 pointBackgroundColor: 'rgba(220,53,69,0.75)',
                     }, {
-                label: "Medical Contract",
-                data: [15,20,22,34,39,50,55,57],
+                label: "Borrow Volume",
+                data: [0.5,0.7,1,2,2,2,1,2,1],
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(40,167,69,0.75)',
                 borderWidth: 3,
@@ -507,16 +508,6 @@
                 pointRadius: 5,
                 pointBorderColor: 'transparent',
                 pointBackgroundColor: 'rgba(40,167,69,0.75)',
-                    },{
-                label: "Diamond Contract",
-                data: [ 2, 4, 8, 9, 11, 12, 14,15],
-                backgroundColor: 'transparent',
-                borderColor: 'rgba(102,51,102,0.75)',
-                borderWidth: 3,
-                pointStyle: 'circle',
-                pointRadius: 5,
-                pointBorderColor: 'transparent',
-                pointBackgroundColor: 'rgba(102,51,102,0.75)',
                     } ]
         },
         options: {
@@ -549,7 +540,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Years'
+                        labelString: 'Months'
                     }
                         } ],
                 yAxes: [ {
@@ -560,7 +551,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Quantity'
+                        labelString: 'Rate'
                     }
                         } ]
             },
@@ -576,11 +567,11 @@
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
-            labels: [ "Manufacturing", "Inspection", "Packaging", "Delivery", "Warehouse", "Delivered"," "],
+            labels: [ "January", "February", "March", "April", "May", "June","July", "August", "September"],
             datasets: [
                 {
-                    label: "Time Taken",
-                    data: [ 55, 50, 75, 80, 56, 55],
+                    label: "Investment",
+                    data: [ 55, 50, 75, 80, 56, 55, 56, 58, 67],
                     borderColor: "rgba(0, 194, 146, 0.9)",
                     borderWidth: "0",
                     backgroundColor: "rgba(0, 194, 146, 0.5)"
@@ -592,7 +583,7 @@
                 yAxes: [ {
                     ticks: {
                         beginAtZero: true,
-                        max: 150
+                        max: 100
                     }
                                 } ]
             }
@@ -604,17 +595,17 @@
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
-            labels: [ "KH", "AH", "SH", "APH","CH"],
+            labels: [ "Jan", "Mar", "May", "Jul","Sept"],
             datasets: [
                 {
-                    label: "Bakery Contract",
+                    label: "Lenders",
                     data: [ 70,84,63,59,48],
                     borderColor: "rgba(0, 194, 146, 0.9)",
                     borderWidth: "0",
                     backgroundColor: "rgba(0,153,0,0.75)"
                             },
                 {
-                    label: "Medical Contract",
+                    label: "Borrowers",
                     data: [ 66, 80, 58, 50, 45],
                     borderColor: "rgba(0,0,0,0.09)",
                     borderWidth: "0",
@@ -638,12 +629,12 @@
     var myChart = new Chart( ctx, {
         type: 'line',
         data: {
-            labels: [ "2012", "2013", "2014", "2015", "2016", "2017", "2018" ],
+            labels: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul" ],
             type: 'line',
             defaultFontFamily: 'Montserrat',
             datasets: [ {
-                data: [ 0, 7, 3, 5, 2, 8, 6 ],
-                label: "Bakery Contract",
+                data: [ 2, 7, 3, 5, 2, 8, 6 ],
+                label: "Deposit",
                 backgroundColor: 'rgba(51,0,153,0.2)',
                 borderColor: 'rgba(0,200,155,0.60)',
                 borderWidth: 3.5,
@@ -653,8 +644,8 @@
                 pointBackgroundColor: 'rgba(0,200,155,0.60)',
                     },
                     {
-                data: [ 0, 6, 3, 4, 3, 7, 10 ],
-                label: "Medicine Contract",
+                data: [ 0, 6, 3, 4, 3, 7, 5 ],
+                label: "Withdrawal",
                 backgroundColor: 'rgba(0,194,146,.25)',
                 borderColor: 'rgba(0,194,146,0.5)',
                 borderWidth: 3.5,
@@ -678,7 +669,7 @@
                 intersect: false,
             },
             legend: {
-                display: false,
+                display: true,
                 position: 'top',
                 labels: {
                     usePointStyle: true,
