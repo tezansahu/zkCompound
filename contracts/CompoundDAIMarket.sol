@@ -29,5 +29,9 @@ contract CompoundDAIMarket{
         exchangeRate = exchangeRate + 5;
     }
 
-    
+    function borrow() public {
+        updateExchangeRate();
+    }
+
+
 }
